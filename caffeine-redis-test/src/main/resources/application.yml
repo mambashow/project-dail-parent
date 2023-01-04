@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: cache-test
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    # Redis连接超时时间
+    connect-timeout: ${SPRING_REDIS_CONNECT_TIMEOUT:2000}
+    # Redis读取超时时间
+    timeout: ${SPRING_REDIS_READ_TIMEOUT:5000}
+    lettuce:
+      pool:
+        # 资源池中最大连接数
+        # 默认8，-1表示无限制；可根据服务并发redis情况及服务端的支持上限调整
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        # 资源池运行最大空闲的连接数
+        # 默认8，-1表示无限制；可根据服务并发redis情况及服务端的支持上限调整，一般建议和max-active保持一致，避免资源伸缩带来的开销
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        # 当资源池连接用尽后，调用者的最大等待时间(单位为毫秒)
+        # 默认 -1 表示永不超时，设置5秒
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+    database: 2
+  cache:
+    multi:
+      caches:
+        cache-test: # 元数据多层缓存管理器
+          l1-spec: ${CACHE_MULTI_CACHE_META_L1_SPEC:initialCapacity=100,maximumSize=5000,expireAfterWrite=3600s}
+          l2-spec: ${CACHE_MULTI_CACHE_META_L2_SPEC:expiration=0}
+      l1:
+        enabled: true
+      l2:
+        enabled: true
+server:
+  port: 7777
+
+cache:
+  retry:
+    # 重试策略 fixed-固定时间 increment-递增 random-随机 fibonacci-斐波那契数列(max-time 数列位置) exponential-指数(2的重试次数次方*基础时间)
+    strategy: ${RETRY_STRATEGY:increment}
+    # 基础时间(秒)
+    base-time: ${RETRY_BASE_TIME:0}
+    # 最大时间(秒)
+    max-time: ${RETRY_MAX_TIME:3}
