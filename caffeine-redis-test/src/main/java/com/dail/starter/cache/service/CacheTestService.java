@@ -1,5 +1,9 @@
 package com.dail.starter.cache.service;
 
+import com.dail.starter.cache.dao.UserInfo;
+
+import java.util.List;
+
 /**
  * description 缓存测试接口
  *
@@ -22,5 +26,18 @@ public interface CacheTestService {
      * @return 数据
      */
     String refreshTest(Long userId);
+
+    /**
+     * 添加用户
+     *
+     * @param userInfoList 用户信息
+     * @return 数据
+     */
+    List<UserInfo> addUser(List<UserInfo> userInfoList);
+
+    /**
+     * 查询用户
+     */
+    List<UserInfo> queryUser(List<Integer> userIdList);
 
 }

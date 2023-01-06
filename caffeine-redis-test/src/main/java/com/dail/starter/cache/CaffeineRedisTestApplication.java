@@ -3,6 +3,7 @@ package com.dail.starter.cache;
 import com.dail.starter.cache.autoconfigure.EnableCache;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * description 启动类
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableCache
+@EnableAsync
 public class CaffeineRedisTestApplication {
 
     public static void main(String[] args) {

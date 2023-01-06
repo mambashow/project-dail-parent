@@ -1,10 +1,11 @@
 package com.dail.starter.cache.controller;
 
+import com.dail.starter.cache.dao.UserInfo;
 import com.dail.starter.cache.service.CacheTestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * description 缓存测试接口controller入口
@@ -37,5 +38,15 @@ public class CacheTestController {
     @RequestMapping(value = "/refresh/{userId}")
     public String refreshTest(@PathVariable Long userId) {
         return cacheTestService.refreshTest(userId);
+    }
+
+    @RequestMapping(value = "/add-user",method = RequestMethod.POST)
+    public List<UserInfo> addUser(@RequestBody List<UserInfo> userInfoList) {
+        return cacheTestService.addUser(userInfoList);
+    }
+
+    @RequestMapping(value = "/query-user",method = RequestMethod.POST)
+    public List<UserInfo> queryUser(@RequestBody List<Integer> userIdList) {
+        return cacheTestService.queryUser(userIdList);
     }
 }

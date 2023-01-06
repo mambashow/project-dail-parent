@@ -1,4 +1,15 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/test
+    password: postgres
+    username: postgres
+    hikari:
+      # 连接池最小空闲连接数
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      # 连接池允许的最大连接数
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      # 等待连接池分配连接的最大时长（毫秒）
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
   application:
     name: cache-test
   redis:
@@ -41,3 +52,10 @@ cache:
     base-time: ${RETRY_BASE_TIME:0}
     # 最大时间(秒)
     max-time: ${RETRY_MAX_TIME:3}
+
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: 'null'
+    local-cache-scope: statement
