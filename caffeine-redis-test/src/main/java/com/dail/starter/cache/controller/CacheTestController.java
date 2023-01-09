@@ -4,6 +4,7 @@ import com.dail.starter.cache.dao.UserInfo;
 import com.dail.starter.cache.service.CacheTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -48,5 +49,10 @@ public class CacheTestController {
     @RequestMapping(value = "/query-user",method = RequestMethod.POST)
     public List<UserInfo> queryUser(@RequestBody List<Integer> userIdList) {
         return cacheTestService.queryUser(userIdList);
+    }
+
+    @PostMapping(value = "/file-upload/multipart")
+    public String fileUpload(@RequestParam("file") MultipartFile multipartFile){
+        return cacheTestService.fileUpload(multipartFile);
     }
 }

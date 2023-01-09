@@ -9,6 +9,9 @@ import com.dail.starter.cache.mq.redis.RedisPublisher;
 import com.dail.starter.cache.multi.MultiCacheManager;
 import com.dail.starter.cache.service.CacheTestService;
 import com.dail.starter.cache.utils.BaseConstants;
+import com.dail.starter.file.entity.FileInfo;
+import com.dail.starter.file.exception.CommonException;
+import com.dail.starter.file.service.AbstractFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +21,10 @@ import org.springframework.cache.Cache;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -46,6 +52,9 @@ public class CacheTestServiceImpl implements CacheTestService {
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    private AbstractFileService abstractFileService;
 
     /**
      * 重试次数，默认3次
@@ -116,6 +125,47 @@ public class CacheTestServiceImpl implements CacheTestService {
             }
         }
         return userInfos;
+    }
+
+    @Override
+    public String fileUpload(MultipartFile multipartFile) {
+        String fileName = multipartFile.getOriginalFilename();
+        String uuid = getReplayKey();
+        String fileKey = uuid + "@" + fileName;
+        try {
+            InputStream is = multipartFile.getInputStream();
+            Throwable var10 = null;
+
+            String fileUrl;
+            try {
+                FileInfo file = (new FileInfo()).setBucketName("file").setDirectory(null).setFileName(fileName)
+                        .setFileType(multipartFile.getContentType())
+                        .setFileSize(multipartFile.getSize())
+                        .setAttachmentUuid(StringUtils.isBlank(uuid) ? "$" : uuid)
+                        .setFileKey(fileKey);
+                fileUrl = abstractFileService.upload(file, is);
+            } catch (Throwable var25) {
+                var10 = var25;
+                throw var25;
+            } finally {
+                if (var10 != null) {
+                    try {
+                        is.close();
+                    } catch (Throwable var24) {
+                        var10.addSuppressed(var24);
+                    }
+                } else {
+                    is.close();
+                }
+
+            }
+
+            return fileUrl;
+        } catch (CommonException var27) {
+            throw var27;
+        } catch (Exception var28) {
+            throw new CommonException("error.file.upload", var28);
+        }
     }
 
     /**

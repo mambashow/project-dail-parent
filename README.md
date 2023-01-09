@@ -174,4 +174,37 @@ private String getReplayKey() {
 #### 5.缓存清除
 - 接收服务端配置: **CacheTestProcessHandlerConfiguration**，缓存消费处理配置类
 - **CacheTestProcessHandler**：缓存清除测试消息处理器
+### 二、文件oss存储组件（minio，可扩展）
+#### 1.依赖
+引入组件依赖
+~~~xml
+        <dependency>
+            <groupId>com.dail.starter</groupId>
+            <artifactId>file-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+~~~
+#### 2.文件处理
+上传、下载等
+#### 3.oss存储扩展
+- FileAutoConfiguration:注入相关oss存储类
+~~~java
+    @Bean
+    public AbstractFileService minioFileService(MinioFileProperties fileProperties){
+        AbstractFileService abstractFileService = new MinioFileServiceImpl();
+        return abstractFileService.init(fileProperties);
+    }
+~~~
+- FileProperties:添加配置信息
+~~~java
+ public static class Minio {
+    private String url;
+    private String accessKey;
+    private String secretKey;
+    private String accessControl = "read-write";
+    private String bucketPrefix = "";
+    private boolean createBucketFlag = true;
+}
+~~~
+- 继承AbstractFileService抽象类,对上传下载等功能进行重写
 ### TODO

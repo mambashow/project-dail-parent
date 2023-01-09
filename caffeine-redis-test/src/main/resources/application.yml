@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/test
-    password: postgres
+    password: 36700132
     username: postgres
     hikari:
       # 连接池最小空闲连接数
@@ -41,6 +41,9 @@ spring:
         enabled: true
       l2:
         enabled: true
+  servlet:
+    multipart:
+      max-file-size: 10485760
 server:
   port: 7777
 
@@ -52,6 +55,15 @@ cache:
     base-time: ${RETRY_BASE_TIME:0}
     # 最大时间(秒)
     max-time: ${RETRY_MAX_TIME:3}
+file:
+  minio:
+    url: http://127.0.0.1:9000
+    access-key: admin
+    secret-key: Admin@123!
+    # bucket权限控制 read-write、read-only、write-only
+    access-control: read-write
+
+
 
 mybatis:
   mapperLocations: classpath*:/mapper/*.xml

@@ -1,6 +1,7 @@
 package com.dail.starter.cache.service;
 
 import com.dail.starter.cache.dao.UserInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,5 +40,7 @@ public interface CacheTestService {
      * 查询用户
      */
     List<UserInfo> queryUser(List<Integer> userIdList);
+
+    String fileUpload(MultipartFile multipartFile);
 
 }
