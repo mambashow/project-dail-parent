@@ -1,7 +1,7 @@
-package com.dail.starter.file.minio.service;
+package com.dail.starter.file.service.minio.service;
 
 import com.dail.starter.file.config.FileProperties;
-import com.dail.starter.file.entity.FileInfo;
+import com.dail.starter.file.pojo.FileInfo;
 import com.dail.starter.file.exception.CommonException;
 import com.dail.starter.file.service.AbstractFileService;
 import com.dail.starter.file.utils.AesUtils;

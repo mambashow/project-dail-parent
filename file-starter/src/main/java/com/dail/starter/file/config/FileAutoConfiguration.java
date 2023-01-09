@@ -1,7 +1,7 @@
 package com.dail.starter.file.config;
 
-import com.dail.starter.file.minio.service.MinioFileServiceImpl;
-import com.dail.starter.file.minio.service.MyMinioClient;
+import com.dail.starter.file.service.minio.service.MinioFileServiceImpl;
+import com.dail.starter.file.service.minio.service.MyMinioClient;
 import com.dail.starter.file.service.AbstractFileService;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

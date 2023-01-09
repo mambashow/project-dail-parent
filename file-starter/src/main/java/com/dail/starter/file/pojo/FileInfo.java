@@ -1,4 +1,4 @@
-package com.dail.starter.file.entity;
+package com.dail.starter.file.pojo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

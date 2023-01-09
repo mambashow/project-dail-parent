@@ -1,7 +1,7 @@
 package com.dail.starter.file.service;
 
 import com.dail.starter.file.config.FileProperties;
-import com.dail.starter.file.entity.FileInfo;
+import com.dail.starter.file.pojo.FileInfo;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 

@@ -1,4 +1,4 @@
-package com.dail.starter.file.minio.service;
+package com.dail.starter.file.service.minio.service;
 
 import com.dail.starter.file.config.FileProperties;
 import com.google.common.collect.Multimap;

@@ -9,7 +9,7 @@ import com.dail.starter.cache.mq.redis.RedisPublisher;
 import com.dail.starter.cache.multi.MultiCacheManager;
 import com.dail.starter.cache.service.CacheTestService;
 import com.dail.starter.cache.utils.BaseConstants;
-import com.dail.starter.file.entity.FileInfo;
+import com.dail.starter.file.pojo.FileInfo;
 import com.dail.starter.file.exception.CommonException;
 import com.dail.starter.file.service.AbstractFileService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,6 @@ import org.springframework.cache.Cache;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
